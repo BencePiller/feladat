@@ -1,3 +1,119 @@
+# 21. feladat
+def ketdimenzios_tomb_muveletek():
+	print("21. feladat: Kétdimenziós tömb műveletek")
+	sor = int(input("Sorok száma: "))
+	oszlop = int(input("Oszlopok száma: "))
+	tomb = []
+	for i in range(sor):
+		sor_lista = []
+		for j in range(oszlop):
+			sor_lista.append(float(input(f"Elem [{i+1},{j+1}]: ")))
+		tomb.append(sor_lista)
+	print("A) Táblázat:")
+	for sor_lista in tomb:
+		print("\t".join(str(x) for x in sor_lista))
+	min_elem = min(min(sor_lista) for sor_lista in tomb)
+	print("B) Legkisebb elem:", min_elem)
+	osszeg = sum(sum(sor_lista) for sor_lista in tomb)
+	print("C) Összeg:", osszeg)
+	print("D) Soronként összeg, átlag:")
+	for sor_lista in tomb:
+		print("Összeg:", sum(sor_lista), "Átlag:", sum(sor_lista)/len(sor_lista))
+	print("E) Soronként legnagyobb, legkisebb:")
+	for sor_lista in tomb:
+		print("Max:", max(sor_lista), "Min:", min(sor_lista))
+	print("F) Soronként összeg, átlag, min, max külön tömbbe:")
+	osszeg_tomb = [sum(sor_lista) for sor_lista in tomb]
+	atlag_tomb = [sum(sor_lista)/len(sor_lista) for sor_lista in tomb]
+	min_tomb = [min(sor_lista) for sor_lista in tomb]
+	max_tomb = [max(sor_lista) for sor_lista in tomb]
+	print("Összeg tömb:", osszeg_tomb)
+	print("Átlag tömb:", atlag_tomb)
+	print("Min tömb:", min_tomb)
+	print("Max tömb:", max_tomb)
+	print("G) Rendezett sorok:")
+	for sor_lista in tomb:
+		print(sorted(sor_lista))
+
+# 22. feladat
+def uszoverseny_pontozas():
+	print("22. feladat: Úszóverseny pontozás")
+	N = int(input("Versenyzők száma: "))
+	M = int(input("Bírók száma: "))
+	pontok = []
+	for i in range(N):
+		pontok.append([int(input(f"Versenyző {i+1}, bíró {j+1} pontja: ")) for j in range(M)])
+	osszpontszamok = [sum(sor) for sor in pontok]
+	maxpont = max(osszpontszamok)
+	minpont = min(osszpontszamok)
+	print("A) Győztes(ek):", [i+1 for i, p in enumerate(osszpontszamok) if p == maxpont])
+	print("B) Legtöbb pontot adó bíró:", max(range(M), key=lambda j: sum(p[j] for p in pontok))+1)
+	print("C) Győztesnek legtöbb/legkevesebb pontot adó bíró:")
+	gyoztes_idx = osszpontszamok.index(maxpont)
+	print("Max:", pontok[gyoztes_idx].index(max(pontok[gyoztes_idx]))+1, "Min:", pontok[gyoztes_idx].index(min(pontok[gyoztes_idx]))+1)
+	print("D) Első három helyezett összpontszáma:", sorted(osszpontszamok, reverse=True)[:3])
+	print("E) Legnagyobb pontot először adó bíró:")
+	for j in range(M):
+		for i in range(N):
+			if pontok[i][j] == 10:
+				print(f"Bíró {j+1} versenyző {i+1}")
+				break
+	print("F) Vesztes:", osszpontszamok.index(minpont)+1)
+	print("G) Különbség győztes és vesztes között:", maxpont-minpont)
+	print("H) Átlagpontszám versenyzőnként:", [sum(sor)/M for sor in pontok])
+	print("I) Átlagpontszám összesen:", sum(sum(sor) for sor in pontok)/(N*M))
+	print("J) Kiadott összpontszám:", sum(sum(sor) for sor in pontok))
+	print("K) Versenyzőnként összpontszám:", osszpontszamok)
+	print("L) Holtversenyek:")
+	from collections import Counter
+	c = Counter(osszpontszamok)
+	for pont, db in c.items():
+		if db > 1:
+			print(f"{db} versenyző {pont} ponttal")
+
+# 23. feladat
+def sakktabla_feladatok():
+	print("23. feladat: Sakktábla feladatok (egyszerűsített)")
+	print("A) 8-8 gyalog véletlenszerűen elhelyezve, kiütések száma nem implementált.")
+	print("B) 2-2 bástya ütik-e egymást? (egyszerűsített)")
+	bastyak = [(int(input("Bástya 1 sor: ")), int(input("Bástya 1 oszlop: "))),
+			   (int(input("Bástya 2 sor: ")), int(input("Bástya 2 oszlop: ")))]
+	if bastyak[0][0] == bastyak[1][0] or bastyak[0][1] == bastyak[1][1]:
+		print("Ütik egymást!")
+	else:
+		print("Nem ütik egymást.")
+	print("C) Bástya és gyalog ütés vizsgálata nem implementált.")
+
+# 24. feladat
+def dolgozat_osztalyozas():
+	print("24. feladat: Dolgozat osztályozás")
+	pont = int(input("Pontszám: "))
+	if pont >= 90:
+		print("Jeles (5)")
+	elif pont >= 75:
+		print("Jó (4)")
+	elif pont >= 60:
+		print("Közepes (3)")
+	elif pont >= 40:
+		print("Elégséges (2)")
+	else:
+		print("Elégtelen (1)")
+
+# 25. feladat
+def siknegyed():
+	print("25. feladat: Melyik síknegyedben van a pont?")
+	x = float(input("x koordináta: "))
+	y = float(input("y koordináta: "))
+	if x > 0 and y > 0:
+		print("I. síknegyed")
+	elif x < 0 and y > 0:
+		print("II. síknegyed")
+	elif x < 0 and y < 0:
+		print("III. síknegyed")
+	elif x > 0 and y < 0:
+		print("IV. síknegyed")
+	else:
+		print("A pont valamelyik tengelyen vagy az origóban van.")
 # 16. feladat
 def rendezett_e_tomb():
 	print("16. feladat: Rendezett-e a tömb?")
