@@ -1,3 +1,151 @@
+# 16. feladat
+def rendezett_e_tomb():
+	print("16. feladat: Rendezett-e a tömb?")
+	N = int(input("Hány elemű legyen a tömb? "))
+	tomb = [float(input(f"{i+1}. elem: ")) for i in range(N)]
+	nov = all(tomb[i] <= tomb[i+1] for i in range(N-1))
+	csokk = all(tomb[i] >= tomb[i+1] for i in range(N-1))
+	print("Növekvő rendezett:" if nov else "Nem növekvő rendezett.")
+	print("Csökkenő rendezett:" if csokk else "Nem csökkenő rendezett.")
+
+# 17. feladat
+def szetvalogatas_10_alapjan():
+	print("17. feladat: Tömb szétválogatása 10 alapján")
+	N = int(input("Hány elemű legyen a tömb? "))
+	tomb = [float(input(f"{i+1}. elem: ")) for i in range(N)]
+	nagyobb = [x for x in tomb if x > 10]
+	kisebb = [x for x in tomb if x < 10]
+	print("10-nél nagyobbak:", nagyobb)
+	print("10-nél kisebbek:", kisebb)
+
+# 18. feladat
+def szetvalogatas_tobb_tombbe():
+	print("18. feladat: Tömb szétválogatása több tömbbe")
+	N = int(input("Hány elemű legyen a tömb? "))
+	tomb = [float(input(f"{i+1}. elem: ")) for i in range(N)]
+	t0_10 = [x for x in tomb if 0 <= x <= 10]
+	t11_20 = [x for x in tomb if 11 <= x <= 20]
+	tobbi = [x for x in tomb if x < 0 or x > 20]
+	print("0-10:", t0_10)
+	print("11-20:", t11_20)
+	print("Többi:", tobbi)
+
+# 19. feladat
+def rendez_fuz():
+	print("19. feladat: Tömbök rendezése és összefűzése")
+	t0_10 = sorted([float(input(f"0-10 szám: ")) for _ in range(3)])
+	t11_20 = sorted([float(input(f"11-20 szám: ")) for _ in range(3)])
+	tobbi = sorted([float(input(f"Többi szám: ")) for _ in range(3)])
+	osszefuzve = t0_10 + t11_20 + tobbi
+	print("Összefűzött tömb:", osszefuzve)
+
+# 20. feladat
+def osszegzes_elottelevovel():
+	print("20. feladat: Minden elemhez hozzáadjuk az előtte lévőt")
+	N = int(input("Hány elemű legyen a tömb? "))
+	tomb = [float(input(f"{i+1}. elem: ")) for i in range(N)]
+	uj_tomb = []
+	for i in range(N):
+		if i == 0:
+			uj_tomb.append(tomb[i])
+		else:
+			uj_tomb.append(tomb[i] + tomb[i-1])
+	print("Új tömb:", uj_tomb)
+# 11. feladat
+def szamkitalalo():
+	import random
+	print("11. feladat: Számkitaláló játék")
+	gondolt = random.randint(1, 100)
+	lepes = 0
+	while True:
+		tipp = int(input("Tippelj (1-100): "))
+		lepes += 1
+		if tipp < gondolt:
+			print("Nagyobb számra gondoltam.")
+		elif tipp > gondolt:
+			print("Kisebb számra gondoltam.")
+		else:
+			print(f"Eltaláltad {lepes} lépésből!")
+			break
+
+# 12. feladat
+def tomb_muveletek():
+	print("12. feladat: Tömb műveletek")
+	tomb = []
+	for i in range(10):
+		szam = float(input(f"{i+1}. szám: "))
+		tomb.append(szam)
+	print("B) Tömb tartalma:", tomb)
+	print("C) Csak pozitív számokat kér be:")
+	tomb_poz = []
+	while len(tomb_poz) < 10:
+		szam = float(input(f"Pozitív szám ({len(tomb_poz)+1}/10): "))
+		if szam > 0:
+			tomb_poz.append(szam)
+	print("D) Pozitív elemek:", [x for x in tomb if x > 0])
+	print("E) Negatív elemek száma:", sum(1 for x in tomb if x < 0))
+	print("F) Tömb összege:", sum(tomb))
+	print("G) Tömb átlaga:", sum(tomb)/len(tomb))
+	szorzat = 1
+	for x in tomb:
+		szorzat *= x
+	print("H) Tömb szorzata:", szorzat)
+	print("I) Összeg, átlag, szorzat:", sum(tomb), sum(tomb)/len(tomb), szorzat)
+
+# 13. feladat
+def bekert_szamok_muveletek():
+	print("13. feladat: Bekért számok műveletei (tömb nélkül)")
+	osszeg = 0
+	szorzat = 1
+	szamok = []
+	for i in range(10):
+		szam = float(input(f"{i+1}. szám: "))
+		osszeg += szam
+		szorzat *= szam
+		szamok.append(szam)
+	print("A) Összeg:", osszeg)
+	print("B) Átlag:", osszeg/10)
+	print("C) Szorzat:", szorzat)
+	print("D) Összeg, átlag, szorzat:", osszeg, osszeg/10, szorzat)
+
+# 14. feladat
+def tomb_elem_vizsgalatok():
+	print("14. feladat: Tömb elem vizsgálatok")
+	N = int(input("Hány elemű legyen a tömb? "))
+	tomb = [float(input(f"{i+1}. elem: ")) for i in range(N)]
+	print("A) Van-e pozitív elem:", any(x > 0 for x in tomb))
+	print("B) Van-e negatív elem:", any(x < 0 for x in tomb))
+	print("C) Szerepel-e 10-es szám:", 10 in tomb)
+	keresett = float(input("D) Melyik számot keresed? "))
+	print("Szerepel-e:", keresett in tomb)
+	print("E) Első pozitív elem:", next((x for x in tomb if x > 0), None))
+	print("F) Pozitív elemek:", [x for x in tomb if x > 0])
+	print("G) Pozitív elemek összege:", sum(x for x in tomb if x > 0))
+	print("H) Negatív elemek:", [x for x in tomb if x < 0])
+	print("I) Negatív elemek száma:", sum(1 for x in tomb if x < 0))
+	print("J) Negatív és pozitív elemek száma:", sum(1 for x in tomb if x < 0), sum(1 for x in tomb if x > 0))
+	print("K) 10-es szám indexe:", tomb.index(10)+1 if 10 in tomb else 0)
+	print("L) Legkisebb elem:", min(tomb), "Index:", tomb.index(min(tomb))+1)
+	print("M) Legnagyobb elem:", max(tomb), "Index:", tomb.index(max(tomb))+1)
+	print("N) Legnagyobb és legkisebb elem:", max(tomb), min(tomb))
+	print("O) Legnagyobb elem előfordulása:", tomb.count(max(tomb)))
+	tomb_rendezett = sorted(tomb)
+	print("P) Második legnagyobb/kisebb:", tomb_rendezett[-2], tomb_rendezett[1])
+	print("Q) Növekvő sorrend:", tomb_rendezett)
+	print("R) Csökkenő sorrend:", sorted(tomb, reverse=True))
+
+# 15. feladat
+def minimum_kivalasztas_rendezes():
+	print("15. feladat: Minimum kiválasztásos rendezés")
+	N = int(input("Hány elemű legyen a tömb? "))
+	tomb = [float(input(f"{i+1}. elem: ")) for i in range(N)]
+	for i in range(N-1):
+		min_idx = i
+		for j in range(i+1, N):
+			if tomb[j] < tomb[min_idx]:
+				min_idx = j
+		tomb[i], tomb[min_idx] = tomb[min_idx], tomb[i]
+	print("Rendezett tömb:", tomb)
 # 5. feladat
 def sorozat_vizsgalat():
 	print("5. feladat: Számtani/mértani sorozat vizsgálat")
